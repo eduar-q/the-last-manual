@@ -17,5 +17,5 @@
 python3 last_manual.py
 ```
 
-Autor
+Autor:
 Eduar Q. (Computer Engineer - Defensive Cybersecurity & Systems Infrastructure)
