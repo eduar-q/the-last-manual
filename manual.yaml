@@ -1,0 +1,23 @@
+# ==========================================
+# THE LAST MANUAL - System Context (KNOWN)
+# ==========================================
+
+system_metadata:
+  expected_hostname: "raude-OptiPlex-380"
+  expected_os: "Linux Mint 22.3"
+
+# Componentes y servicios documentados oficialmente
+known_components:
+  services:
+    - name: "ssh"
+      description: "Secure Shell remote access daemon"
+      critical: true
+    - name: "networking"
+      description: "Network interface management"
+      critical: true
+
+  critical_paths:
+    - path: "/etc/passwd"
+      purpose: "System user database"
+    - path: "/etc/ssh/sshd_config"
+      purpose: "SSH security configuration"
