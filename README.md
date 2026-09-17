@@ -1,21 +1,21 @@
-# The Last Manual
-
+> ## The Last Manual
+> 
 > **System Handover Triage & State Reconciliation Tool**
-
-> [!NOTE]  
-> 🚧 **PROYECTO EN FASE DE CONSTRUCCIÓN (MVP)**: Esta herramienta se encuentra activamente en desarrollo. Las características y la estructura están evolucionando.
-
-*The Last Manual* es una herramienta diseñada para auditar servidores heredados o recién adquiridos, contrastando la realidad operativa del sistema operativo (**UNKNOWN**) contra una fuente de verdad documentada (**KNOWN**).
-
-## Estructura del Proyecto
-- `last_manual.py`: Script principal de análisis y triage del sistema.
-- `manual.yaml`: Archivo de contexto con los componentes esperados y documentados.
-- `examples/`: Directorio con plantillas de referencia.
-
-## Uso Rápido
-```bash
-python3 last_manual.py
-```
-
-Autor:
-Eduar Q. (Computer Engineer - Defensive Cybersecurity & Systems Infrastructure)
+> 
+> > [!NOTE]  
+> > 🚧 **PROJECT UNDER CONSTRUCTION (MVP)**: This tool is currently in active development. Features and structure are evolving.
+> 
+> *The Last Manual* is a utility designed to audit legacy or newly acquired servers, contrasting the operational reality of the operating system (**UNKNOWN**) against a documented source of truth (**KNOWN**).
+> 
+> ### Project Structure
+> - `last_manual.py`: Main system analysis and triage script.
+> - `manual.yaml`: Context file containing expected and documented components.
+> - `examples/`: Directory with reference templates.
+> 
+> ### Quick Start
+> ```bash
+> python3 last_manual.py
+> ```
+> 
+> ### Author:
+> *Eduar Q. (Computer Engineer - Defensive Cybersecurity & Systems Infrastructure)*
