@@ -1,6 +1,4 @@
-# 🖥️ The Last Manual
-
-> 🔎 **A lightweight Linux tool for system handover triage and state reconciliation.**
+🔎 **A lightweight Linux tool for system handover triage and state reconciliation.**
 
 ## 🧩 The Problem & How It Works
 
@@ -22,7 +20,7 @@ El archivo de configuración contiene el contexto conocido del sistema. Está di
 
 ```yaml
 system_metadata:
-  expected_hostname: "raude-OptiPlex-380"
+  expected_hostname: "linux-lab"
 
 known_components:
   services:
@@ -57,8 +55,8 @@ Un resultado exitoso se ve así:
 [*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
 
 [🔍] Reconciliación de Hostname:
-  - Documentado (KNOWN): raude-OptiPlex-380
-  - Real (UNKNOWN):      raude-OptiPlex-380
+  - Documentado (KNOWN): linux-lab
+  - Real (UNKNOWN):      linux-lab
   [✔] Estado: CONFORME (KNOWN)
 
 [📂] Auditoría de Rutas Críticas:
@@ -107,3 +105,7 @@ Distribuido bajo la **Licencia MIT**.
 🎓 *Computer Engineer*
 
 🛡️ *Defensive Cybersecurity & Systems Infrastructure*
+
+```
+
+```
