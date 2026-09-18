@@ -107,5 +107,3 @@ Distribuido bajo la **Licencia MIT**.
 🛡️ *Defensive Cybersecurity & Systems Infrastructure*
 
 ```
-
-```
