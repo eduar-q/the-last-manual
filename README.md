@@ -2,9 +2,6 @@
 
 > **System Handover Triage & State Reconciliation Tool**
 
-> [!NOTE]  
-> 🚧 **PROYECTO EN FASE DE CONSTRUCCIÓN (MVP)**: Herramienta minimalista y defensiva para auditorías rápidas de entrega de servidores (*handover*).
-
 *The Last Manual* contrasta la realidad operativa del sistema operativo (**UNKNOWN**) frente a una fuente de verdad documentada (**KNOWN**), operando de forma estrictamente local, segura y sin dependencias externas complejas.
 
 ## ¿Qué audita?
@@ -20,3 +17,8 @@
 ## Uso Rápido
 ```bash
 python3 last_manual.py
+```
+
+Autor: Eduar Q.
+
+Computer Engineer - Defensive Cybersecurity & Systems Infrastructure
