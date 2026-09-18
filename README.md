@@ -1,28 +1,31 @@
-🔎 **A lightweight Linux tool for system handover triage and state reconciliation.**
+# 🖥️ The Last Manual
+> 🔎 **A lightweight Linux tool for system handover triage and state reconciliation.**
 
 ## 🧩 The Problem & How It Works
 
-Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas clave: 
+Cuando una persona deja de administrar un sistema Linux, otra puede tener que hacerse cargo sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas sencillas:
 
-- **¿Este es el equipo que esperaba recibir?**
-- **¿Los servicios importantes siguen funcionando?**
-- **¿Las rutas críticas están presentes?**
-- **¿Qué usuarios tienen una shell interactiva?**
-- **¿Hay alguna diferencia entre lo que está documentado y lo que existe realmente?**
+- 🖥️ **¿Este es el equipo que esperaba recibir?**
+- ⚙️ **¿Los servicios importantes siguen funcionando?**
+- 📂 **¿Las rutas críticas están presentes?**
+- 👤 **¿Qué usuarios tienen una shell interactiva?**
+- 🔍 **¿Coincide lo documentado con lo que existe realmente?**
 
-**The Last Manual** ofrece un punto de partida rápido y seguro para responder esas preguntas mediante una reconciliación directa entre la documentación declarada (`manual.yaml` / **KNOWN**) y el estado operativo real del sistema (**UNKNOWN**). 
+**The Last Manual** ofrece un punto de partida para responderlas comparando la documentación de `manual.yaml` (**KNOWN**) con el estado actual del sistema (**REAL**).
 
-El script realiza de forma local las siguientes comprobaciones:
-1. **Reconciliación de Hostname**: Compara el nombre esperado con el real (`platform.node()`).
-2. **Auditoría de Rutas Críticas**: Verifica la existencia física de los archivos declarados.
-3. **Auditoría de Servicios**: Comprueba el estado activo mediante `systemctl is-active`.
-4. **Inventario de Usuarios**: Consulta `/etc/passwd` y valida contra las shells interactivas permitidas en `/etc/shells`.
+El script realiza localmente estas comprobaciones:
+1. 🖥️ **Hostname:** Compara el hostname esperado con el real.
+2. 📂 **Rutas críticas:** Verifica que las rutas documentadas existan.
+3. ⚙️ **Servicios:** Comprueba su estado mediante `systemctl`.
+4. 👤 **Usuarios:** Consulta `/etc/passwd` y `/etc/shells` para identificar usuarios con shell interactiva.
 
-⚠️ **Nota sobre discrepancias**: Una alerta no significa necesariamente que algo esté mal. Simplemente señala una diferencia entre la documentación y la realidad para que sea investigada (actualización, migración o documentación desactualizada).
+⚠️ **Una discrepancia no significa necesariamente que algo esté mal.** Solo indica que existe una diferencia que debe ser revisada. Puede deberse a un cambio legítimo, una migración o documentación desactualizada.
 
-## 📖 The Manual (`manual.yaml`)
+---
 
-El archivo de configuración contiene el contexto conocido del sistema. Está diseñado para ser simple, legible y **sin información sensible o secretos** (sin contraseñas, claves privadas ni tokens).
+## 📖 The Manual
+
+`manual.yaml` contiene el contexto conocido del sistema. Está diseñado para ser simple y **no debe contener información sensible ni secretos**.
 
 ```yaml
 system_metadata:
@@ -43,20 +46,12 @@ known_components:
     - path: "/etc/ssh/sshd_config"
       purpose: "SSH security configuration"
 
-```
-
-## ▶️ Uso Rápido y Ejemplo de Salida
-
-El programa debe ejecutarse localmente en un sistema Linux. **No realiza ningún cambio en el sistema.**
-
-```bash
+▶️ Usage
+Ejecuta el programa localmente en un sistema Linux:
 python3 last_manual.py
 
-```
-
-Un resultado exitoso se ve así:
-
-```text
+🛡️ No realiza cambios en el sistema.
+🧪 Example Output
 === THE LAST MANUAL ===
 [*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
 
@@ -74,18 +69,13 @@ Un resultado exitoso se ve así:
   - NetworkManager -> Activo (KNOWN)
 
 [👤] Auditoría de Usuarios con Shell Interactiva:
-  - Usuario: root (Shell: /bin/bash)
-  - Usuario: raude (Shell: /bin/bash)
+  - Usuario: example-user (Shell: /bin/bash)
 
 ========================================
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
 ========================================
 
-```
-
-## 📁 Estructura del Proyecto, Tecnologías y Licencia
-
-```text
+📁 Project Structure
 the-last-manual/
 ├── last_manual.py
 ├── manual.yaml
@@ -96,22 +86,28 @@ the-last-manual/
     ├── manual.example.yaml
     └── handover_report.example.md
 
-```
+ * last_manual.py: Utiliza únicamente Python 3 y herramientas nativas de Linux, sin librerías externas.
+ * manual.yaml: Sirve como referencia del estado conocido del sistema.
+ * examples/: Contiene ejemplos para documentar un sistema y entender el resultado.
+⚠️ Limitations
+The Last Manual es una herramienta pequeña de apoyo durante un handover.
+No pretende:
+ * 🔎 Descubrir absolutamente todo lo que existe en Linux.
+ * 🧠 Determinar por qué existe un servicio o usuario.
+ * 🛡️ Decidir si una configuración es segura o insegura.
+ * 🔐 Reemplazar una auditoría formal de seguridad.
+ * ⚙️ Realizar cambios en el sistema.
+Su objetivo es más sencillo:
+Reducir la incertidumbre inicial cuando alguien tiene que hacerse cargo de un sistema que no conoce.
+💭 Why I Built It
+Un sistema puede seguir funcionando aunque la persona que lo administraba ya no esté disponible. A veces existe documentación, pero está incompleta o desactualizada. Otras veces simplemente hay que recibir un sistema que otra persona conoce mucho mejor.
+The Last Manual intenta responder una pregunta sencilla:
+¿Lo que está documentado coincide con lo que realmente existe?
+Si no coincide, la herramienta no intenta adivinar. 🔍 Señala la diferencia para que una persona pueda investigar, preguntar o actualizar la documentación.
+📜 License
+MIT License.
+👨‍💻 Author
+Eduar Q.
+🎓 Computer Engineer
+🛡️ Defensive Cybersecurity & Systems Infrastructure
 
-El proyecto está compuesto por el script principal 
-
-- **`last_manual.py`** (stdlib-only, sin dependencias externas en Python 3),
-- El archivo de contexto **`manual.yaml`**
-- El directorio **`examples/`** con plantillas de referencia.
-
-*The Last Manual* es una herramienta de apoyo rápido para un proceso de *handover* basada en Linux, `/etc/passwd`, `/etc/shells` y `systemctl`. No pretende reemplazar auditorías formales de seguridad ni descubrir absolutamente todo en el sistema, sino acortar la curva de incertidumbre inicial.
-
-Distribuido bajo la **Licencia MIT**.
-
----
-
-**Autor:** Eduar Q.
-
-🎓 *Computer Engineer*
-
-🛡️ *Defensive Cybersecurity & Systems Infrastructure*
