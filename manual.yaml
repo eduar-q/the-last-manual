@@ -12,7 +12,7 @@ known_components:
     - name: "ssh"
       description: "Secure Shell remote access daemon"
       critical: true
-    - name: "networking"
+    - name: "NetworkManager"
       description: "Network interface management"
       critical: true
 

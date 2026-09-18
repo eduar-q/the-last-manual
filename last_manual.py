@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
-import platform, os
+import platform, os, subprocess
 
 print("=== THE LAST MANUAL ===")
+alerts = 0
 
-# 1. Cargar datos del manual.yaml de forma directa
-exp_host, paths = "", []
-if os.path.exists("manual.yaml"):
-    with open("manual.yaml", encoding="utf-8") as f:
-        for line in f:
-            if "expected_hostname:" in line:
-                exp_host = line.split(":")[1].strip().strip('"\'')
-            elif line.startswith("- path:"):
-                paths.append(line.split(":")[1].strip().strip('"\''))
+# 1. Hostname
+host = platform.node()
+print(f"\n[🔍] Hostname: {host} [✔]")
 
-# 2. Reconciliación de Hostname
-real_host = platform.node()
-match = "✔" if real_host == exp_host else "!"
-print(f"\n[🔍] Hostname: Real ({real_host}) vs Esperado ({exp_host}) [{match}]")
-
-# 3. Auditoría de Rutas Críticas
+# 2. Rutas Críticas
 print("\n[📂] Rutas Críticas:")
-for p in paths:
-    status = "✔" if os.path.exists(p) else "!"
-    print(f"  [{status}] {p}")
+for p in ["/etc/passwd", "/etc/ssh/sshd_config"]:
+    ok = os.path.exists(p)
+    print(f"  [{'✔' if ok else '!'}] {p}")
+    if not ok: alerts += 1
 
-# 4. Auditoría rápida de Usuarios (con shell interactiva)
-print("\n[👤] Usuarios del Sistema:")
+# 3. Servicios (ssh y NetworkManager)
+print("\n[⚙️] Servicios:")
+for s in ["ssh", "NetworkManager"]:
+    res = subprocess.run(["systemctl", "is-active", s], capture_output=True, text=True)
+    state = res.stdout.strip()
+    print(f"  [{'✔' if state == 'active' else '!'}] {s}: {state}")
+    if state != "active": alerts += 1
+
+# 4. Usuarios con shell
+print("\n[👤] Usuarios:")
 with open("/etc/passwd") as f:
     for line in f:
         parts = line.strip().split(":")
         if len(parts) >= 7 and "sh" in parts[6]:
             print(f"  - {parts[0]} ({parts[6]})")
+
+# Resumen
+print(f"\n[RESULTADO] Alertas detectadas: {alerts}")
