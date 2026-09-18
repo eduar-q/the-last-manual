@@ -53,11 +53,12 @@ Compara el hostname documentado en `manual.yaml` con el hostname real del equipo
   - Documentado (KNOWN): raude-OptiPlex-380
   - Real (UNKNOWN):      raude-OptiPlex-380
   [✔] Estado: CONFORME (KNOWN)
+```
 
 Si son diferentes, se marca como:
-
+```
 [!] Estado: DISCREPANCIA (REVIEW REQUIRED)
-
+```
 📂 Critical Paths
 
 Comprueba si las rutas definidas en manual.yaml existen realmente en el sistema.
