@@ -50,20 +50,19 @@ Compara el hostname documentado en `manual.yaml` con el hostname real del equipo
 
 ```text
 [🔍] Reconciliación de Hostname:
-  - Documentado (KNOWN): raude-OptiPlex-380
-  - Real (UNKNOWN):      raude-OptiPlex-380
+  - Documentado (KNOWN): linux-lab
+  - Real (UNKNOWN):      linux-lab
   [✔] Estado: CONFORME (KNOWN)
-```
 
 Si son diferentes, se marca como:
-```
+
 [!] Estado: DISCREPANCIA (REVIEW REQUIRED)
-```
+
 📂 Critical Paths
 
 Comprueba si las rutas definidas en manual.yaml existen realmente en el sistema.
 
-Actualmente el ejemplo incluye:
+El ejemplo utiliza:
 
 /etc/passwd
 /etc/ssh/sshd_config
@@ -74,7 +73,7 @@ Si una ruta no existe, se marca para revisión.
 
 Comprueba el estado de los servicios definidos en manual.yaml utilizando systemctl.
 
-Actualmente el ejemplo incluye:
+El ejemplo utiliza:
 
 ssh
 NetworkManager
@@ -98,7 +97,7 @@ El archivo manual.yaml contiene el contexto conocido del sistema.
 Ejemplo:
 
 system_metadata:
-  expected_hostname: "raude-OptiPlex-380"
+  expected_hostname: "linux-lab"
 
 known_components:
   services:
@@ -176,8 +175,8 @@ Un resultado puede verse así:
 [*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
 
 [🔍] Reconciliación de Hostname:
-  - Documentado (KNOWN): raude-OptiPlex-380
-  - Real (UNKNOWN):      raude-OptiPlex-380
+  - Documentado (KNOWN): linux-lab
+  - Real (UNKNOWN):      linux-lab
   [✔] Estado: CONFORME (KNOWN)
 
 [📂] Auditoría de Rutas Críticas:
@@ -189,7 +188,7 @@ Un resultado puede verse así:
   [✔] NetworkManager -> Activo (KNOWN)
 
 [👤] Auditoría de Usuarios con Shell Interactiva:
-  - Usuario: eduar (Shell: /bin/bash)
+  - Usuario: example-user (Shell: /bin/bash)
 
 ========================================
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
