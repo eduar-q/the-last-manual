@@ -2,7 +2,13 @@
 
 ## 🧩 The Problem & How It Works
 
-Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas clave: ¿Este es el equipo que esperaba recibir? ¿Los servicios importantes siguen funcionando? ¿Las rutas críticas están presentes? ¿Qué usuarios tienen una shell interactiva? ¿Hay alguna diferencia entre lo que está documentado y lo que existe realmente?
+Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas clave: 
+
+- ¿Este es el equipo que esperaba recibir?
+- ¿Los servicios importantes siguen funcionando?
+- ¿Las rutas críticas están presentes?
+- ¿Qué usuarios tienen una shell interactiva?
+- ¿Hay alguna diferencia entre lo que está documentado y lo que existe realmente?
 
 **The Last Manual** ofrece un punto de partida rápido y seguro para responder esas preguntas mediante una reconciliación directa entre la documentación declarada (`manual.yaml` / **KNOWN**) y el estado operativo real del sistema (**UNKNOWN**). 
 
