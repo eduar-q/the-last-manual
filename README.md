@@ -105,5 +105,3 @@ Distribuido bajo la **Licencia MIT**.
 🎓 *Computer Engineer*
 
 🛡️ *Defensive Cybersecurity & Systems Infrastructure*
-
-```
