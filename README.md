@@ -1,111 +1,34 @@
 # 🖥️ The Last Manual
 
-> 🔎 **A small Linux tool for understanding a system when its administrator is no longer available.**
+> 🔎 **A lightweight Linux tool for system handover triage and state reconciliation.**
 
-## 🧩 The Problem
+## 🧩 The Problem & How It Works
 
-Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado.
+Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas clave: ¿Este es el equipo que esperaba recibir? ¿Los servicios importantes siguen funcionando? ¿Las rutas críticas están presentes? ¿Qué usuarios tienen una shell interactiva? ¿Hay alguna diferencia entre lo que está documentado y lo que existe realmente?
 
-El sistema puede seguir funcionando, pero pueden aparecer preguntas sencillas:
+**The Last Manual** ofrece un punto de partida rápido y seguro para responder esas preguntas mediante una reconciliación directa entre la documentación declarada (`manual.yaml` / **KNOWN**) y el estado operativo real del sistema (**UNKNOWN**). 
 
-- 🖥️ ¿Este es el equipo que esperaba recibir?
-- ⚙️ ¿Los servicios importantes siguen funcionando?
-- 📂 ¿Las rutas importantes están presentes?
-- 👤 ¿Qué usuarios tienen una shell interactiva?
-- 🔍 ¿Hay alguna diferencia entre lo que está documentado y lo que existe realmente?
+El script realiza de forma local las siguientes comprobaciones:
+1. **Reconciliación de Hostname**: Compara el nombre esperado con el real (`platform.node()`).
+2. **Auditoría de Rutas Críticas**: Verifica la existencia física de los archivos declarados.
+3. **Auditoría de Servicios**: Comprueba el estado activo mediante `systemctl is-active`.
+4. **Inventario de Usuarios**: Consulta `/etc/passwd` y valida contra las shells interactivas permitidas en `/etc/shells`.
 
-**The Last Manual** intenta dar un punto de partida para responder esas preguntas.
+⚠️ **Nota sobre discrepancias**: Una alerta no significa necesariamente que algo esté mal. Simplemente señala una diferencia entre la documentación y la realidad para que sea investigada (actualización, migración o documentación desactualizada).
 
-La herramienta toma una pequeña documentación del sistema y la compara con información que puede comprobar directamente en el equipo.
+## 📖 The Manual (`manual.yaml`)
 
-💡 La idea es sencilla:
+El archivo de configuración contiene el contexto conocido del sistema. Está diseñado para ser simple, legible y **sin información sensible o secretos** (sin contraseñas, claves privadas ni tokens).
 
-> **Comparar lo que sabemos con lo que realmente existe.**
-
-## ⚙️ How It Works
-
-El proyecto utiliza `manual.yaml` como referencia de lo que se conoce del sistema.
-
-El archivo puede indicar:
-
-- 🖥️ El hostname esperado.
-- ⚙️ Los servicios que deberían estar funcionando.
-- 📂 Las rutas importantes que deberían existir.
-
-`last_manual.py` lee esa información y la compara con el estado actual del sistema Linux.
-
-El resultado muestra qué coincide con lo documentado y qué necesita revisión.
-
-⚠️ Una diferencia no significa necesariamente que algo esté mal.
-
-Por ejemplo, si el hostname cambió, puede existir una razón válida para ello.
-
-La herramienta solamente señala la diferencia para que una persona pueda investigarla.
-
-## 🔍 System Checks
-
-### 🖥️ Hostname
-
-Compara el hostname documentado en `manual.yaml` con el hostname real del equipo.
-
-```text
-[🔍] Reconciliación de Hostname:
-  - Documentado (KNOWN): linux-lab
-  - Real (UNKNOWN):      linux-lab
-  [✔] Estado: CONFORME (KNOWN)
-```
-Si son diferentes, se marca como:
-
-```[!] Estado: DISCREPANCIA (REVIEW REQUIRED)```
-
-## 📂 Critical Paths
-
-Comprueba si las rutas definidas en `manual.yaml` existen realmente en el sistema.
-
-El ejemplo utiliza:
-```
-/etc/passwd
-/etc/ssh/sshd_config
-```
-
-Si una ruta no existe, se marca para revisión.
-
-## ⚙️ System Services
-
-Comprueba el estado de los servicios definidos en `manual.yaml` utilizando `systemctl`.
-
-El ejemplo utiliza:
-```
-ssh
-NetworkManager
-```
-Un servicio activo se muestra como conforme.
-
-Un servicio detenido, inexistente o que no pueda verificarse se marca para revisión.
-
-## 👤 Interactive Users
-
-Consulta `/etc/passwd` y `/etc/shells` para mostrar los usuarios que tienen una shell considerada válida para interacción.
-
-Esta sección funciona como un inventario rápido.
-
-Actualmente no compara estos usuarios contra una lista documentada, por lo que encontrar un usuario aquí no significa que sea desconocido o incorrecto.
-
-## 📖 The Manual
-
-El archivo manual.yaml contiene el contexto conocido del sistema.
-
-Ejemplo:
-```
+```yaml
 system_metadata:
-  expected_hostname: "linux-lab"
+  expected_hostname: "raude-OptiPlex-380"
 
 known_components:
   services:
     - name: "ssh"
       description: "Secure Shell remote access daemon"
       critical: true
-
     - name: "NetworkManager"
       description: "Network interface management"
       critical: true
@@ -113,27 +36,52 @@ known_components:
   critical_paths:
     - path: "/etc/passwd"
       purpose: "System user database"
-
     - path: "/etc/ssh/sshd_config"
       purpose: "SSH security configuration"
+
 ```
-### 🔐 El archivo está pensado para contener información de contexto, no secretos.
 
-No debería contener:
+## ▶️ Uso Rápido y Ejemplo de Salida
 
-🔑 Contraseñas.
+El programa debe ejecutarse localmente en un sistema Linux. **No realiza ningún cambio en el sistema.**
 
-🔐 Claves privadas.
+```bash
+python3 last_manual.py
 
-🎫 Tokens.
-
-👤 Credenciales.
-
-📄 Información sensible innecesaria.
-
-
-## 📁 Project Structure
 ```
+
+Un resultado exitoso se ve así:
+
+```text
+=== THE LAST MANUAL ===
+[*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
+
+[🔍] Reconciliación de Hostname:
+  - Documentado (KNOWN): raude-OptiPlex-380
+  - Real (UNKNOWN):      raude-OptiPlex-380
+  [✔] Estado: CONFORME (KNOWN)
+
+[📂] Auditoría de Rutas Críticas:
+  - /etc/passwd -> Presente (KNOWN)
+  - /etc/ssh/sshd_config -> Presente (KNOWN)
+
+[⚙️] Auditoría de Servicios del Sistema:
+  - ssh -> Activo (KNOWN)
+  - NetworkManager -> Activo (KNOWN)
+
+[👤] Auditoría de Usuarios con Shell Interactiva:
+  - Usuario: root (Shell: /bin/bash)
+  - Usuario: raude (Shell: /bin/bash)
+
+========================================
+[RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
+========================================
+
+```
+
+## 📁 Estructura del Proyecto, Tecnologías y Licencia
+
+```text
 the-last-manual/
 ├── last_manual.py
 ├── manual.yaml
@@ -143,175 +91,19 @@ the-last-manual/
 └── examples/
     ├── manual.example.yaml
     └── handover_report.example.md
-```
-🐍 `last_manual.py`
 
-Script principal.
-
-Lee el manual y consulta información directamente en el sistema Linux para realizar las comprobaciones.
-
-### 📖 manual.yaml
-
-Contiene la información conocida del sistema que se utilizará como referencia.
-
-### 📚 examples/
-
-Contiene ejemplos seguros para entender cómo documentar un sistema y cómo puede verse un reporte.
-
-### ▶️ Usage
-
-Desde el directorio del proyecto:
-```
-python3 last_manual.py
 ```
 
-### 🐧 El programa debe ejecutarse en un sistema Linux.
+El proyecto está compuesto por el script principal **`last_manual.py`** (stdlib-only, sin dependencias externas en Python 3), el archivo de contexto **`manual.yaml`** y el directorio **`examples/`** con plantillas de referencia.
 
-### 🛡️ No realiza cambios en el sistema.
+*The Last Manual* es una herramienta de apoyo rápido para un proceso de *handover* basada en Linux, `/etc/passwd`, `/etc/shells` y `systemctl`. No pretende reemplazar auditorías formales de seguridad ni descubrir absolutamente todo en el sistema, sino acortar la curva de incertidumbre inicial.
 
-### 🧪 Example Output
+Distribuido bajo la **Licencia MIT**.
 
-Un resultado puede verse así:
-```
-=== THE LAST MANUAL ===
-[*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
+---
 
-[🔍] Reconciliación de Hostname:
-  - Documentado (KNOWN): linux-lab
-  - Real (UNKNOWN):      linux-lab
-  [✔] Estado: CONFORME (KNOWN)
+**Autor:** Eduar Q.
 
-[📂] Auditoría de Rutas Críticas:
-  [✔] /etc/passwd -> Presente (KNOWN)
-  [✔] /etc/ssh/sshd_config -> Presente (KNOWN)
+🎓 *Computer Engineer*
 
-[⚙️] Auditoría de Servicios del Sistema:
-  [✔] ssh -> Activo (KNOWN)
-  [✔] NetworkManager -> Activo (KNOWN)
-
-[👤] Auditoría de Usuarios con Shell Interactiva:
-  - Usuario: example-user (Shell: /bin/bash)
-
-========================================
-[RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
-========================================
-```
-Si alguna comprobación no coincide con lo documentado, el resultado indica que necesita revisión.
-
-⚠️ Review Required
-
-Una discrepancia no significa automáticamente que exista un problema de seguridad.
-
-Por ejemplo:
-
-Documentado: linux-server-01
-Real:        linux-server-02
-
-Esto solamente indica que el sistema actual no coincide con la documentación.
-
-Puede ser consecuencia de:
-
-🔧 Un cambio legítimo.
-
-🔄 Una actualización.
-
-🚚 Una migración.
-
-📄 Documentación desactualizada.
-
-📝 Una configuración que nunca fue documentada.
-
-
-La herramienta no intenta decidir cuál de estas situaciones ocurrió.
-
-🔎 Señala la diferencia y deja la investigación a la persona que recibe el sistema.
-
-🚧 Limitations
-
-The Last Manual es una herramienta pequeña de apoyo durante un handover.
-
-No intenta:
-
-🔎 Descubrir absolutamente todo lo que existe en Linux.
-
-🧠 Determinar por qué existe un servicio o usuario.
-
-🛡️ Decidir si una configuración es segura o insegura.
-
-🔐 Reemplazar una auditoría de seguridad.
-
-📚 Reemplazar una documentación completa.
-
-🚨 Detectar por sí solo una intrusión.
-
-⚙️ Realizar cambios en el sistema.
-
-
-El formato de manual.yaml utilizado por el proyecto es deliberadamente sencillo y está pensado para la estructura utilizada por esta herramienta. No pretende ser un parser YAML completo.
-
-El proyecto tampoco mantiene un historial de cambios. Si algo cambia entre dos ejecuciones, la herramienta no puede saber cuándo ocurrió el cambio.
-
-💭 Why I Built It
-
-Un sistema puede seguir funcionando aunque la persona que lo administraba ya no esté disponible.
-
-El problema no siempre es que falte un manual.
-
-A veces existe documentación, pero está incompleta o desactualizada.
-
-Otras veces simplemente hay que recibir un sistema que otra persona conoce mucho mejor que tú.
-
-The Last Manual intenta reducir ese primer momento de incertidumbre:
-
-¿Qué debería existir?
-        ↓
-¿Qué existe realmente?
-        ↓
-¿Coincide?
-        ↓
-Si no coincide:
-investigar, preguntar o documentar
-
-🧠 La herramienta no intenta adivinar.
-
-Si encuentra una diferencia, no dice:
-
-> "Esto está mal."
-
-
-
-Dice:
-
-> "Esto no coincide con lo que está documentado. Revísalo."
-
-
-
-🎯 Ese es el propósito del proyecto.
-
-🛠️ Technologies
-
-🐍 Python 3
-
-🐧 Linux
-
-⚙️ systemctl
-
-👤 /etc/passwd
-
-🐚 /etc/shells
-
-📄 Archivos de configuración del sistema
-
-
-📦 No requiere librerías externas de Python.
-
-## 📜 License
-
-MIT License.
-
-### 👨‍💻 Author
-
-Eduar Q.
-
-🎓 Computer Engineer
-🛡️ Defensive Cybersecurity & Systems Infrastructure
+🛡️ *Defensive Cybersecurity & Systems Infrastructure*
