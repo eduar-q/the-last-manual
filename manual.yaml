@@ -4,7 +4,6 @@
 
 system_metadata:
   expected_hostname: "raude-OptiPlex-380"
-  expected_os: "Linux Mint 22.3"
 
 # Componentes y servicios documentados oficialmente
 known_components:
