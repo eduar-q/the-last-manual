@@ -1,0 +1,23 @@
+# ==========================================
+# THE LAST MANUAL - Example System Context
+# ==========================================
+
+system_metadata:
+  expected_hostname: "linux-server-01"
+
+known_components:
+  services:
+    - name: "ssh"
+      description: "Secure Shell remote access daemon"
+      critical: true
+    - name: "nginx"
+      description: "Web server proxy"
+      critical: true
+
+  critical_paths:
+    - path: "/etc/passwd"
+      purpose: "System user database"
+    - path: "/etc/ssh/sshd_config"
+      purpose: "SSH security configuration"
+    - path: "/etc/nginx/nginx.conf"
+      purpose: "Nginx main configuration"
