@@ -4,7 +4,7 @@
 
 Cuando una persona deja de administrar un sistema Linux, otra persona puede tener que hacerse cargo de él sin conocer bien cómo está configurado. El sistema puede seguir funcionando, pero surgen preguntas clave: 
 
-- ¿Este es el equipo que esperaba recibir?
+- *¿Este es el equipo que esperaba recibir?
 - ¿Los servicios importantes siguen funcionando?
 - ¿Las rutas críticas están presentes?
 - ¿Qué usuarios tienen una shell interactiva?
