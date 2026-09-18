@@ -53,49 +53,50 @@ Compara el hostname documentado en `manual.yaml` con el hostname real del equipo
   - Documentado (KNOWN): linux-lab
   - Real (UNKNOWN):      linux-lab
   [✔] Estado: CONFORME (KNOWN)
-
+```
 Si son diferentes, se marca como:
 
-[!] Estado: DISCREPANCIA (REVIEW REQUIRED)
+```[!] Estado: DISCREPANCIA (REVIEW REQUIRED)```
 
-📂 Critical Paths
+## 📂 Critical Paths
 
-Comprueba si las rutas definidas en manual.yaml existen realmente en el sistema.
+Comprueba si las rutas definidas en `manual.yaml` existen realmente en el sistema.
 
 El ejemplo utiliza:
-
+```
 /etc/passwd
 /etc/ssh/sshd_config
+```
 
 Si una ruta no existe, se marca para revisión.
 
-⚙️ System Services
+## ⚙️ System Services
 
-Comprueba el estado de los servicios definidos en manual.yaml utilizando systemctl.
+Comprueba el estado de los servicios definidos en `manual.yaml` utilizando `systemctl`.
 
 El ejemplo utiliza:
-
+```
 ssh
 NetworkManager
-
+```
 Un servicio activo se muestra como conforme.
 
 Un servicio detenido, inexistente o que no pueda verificarse se marca para revisión.
 
-👤 Interactive Users
+## 👤 Interactive Users
 
-Consulta /etc/passwd y /etc/shells para mostrar los usuarios que tienen una shell considerada válida para interacción.
+Consulta `/etc/passwd` y `/etc/shells` para mostrar los usuarios que tienen una shell considerada válida para interacción.
 
 Esta sección funciona como un inventario rápido.
 
 Actualmente no compara estos usuarios contra una lista documentada, por lo que encontrar un usuario aquí no significa que sea desconocido o incorrecto.
 
-📖 The Manual
+## 📖 The Manual
 
 El archivo manual.yaml contiene el contexto conocido del sistema.
 
 Ejemplo:
-
+```
 system_metadata:
   expected_hostname: "linux-lab"
 
@@ -115,8 +116,8 @@ known_components:
 
     - path: "/etc/ssh/sshd_config"
       purpose: "SSH security configuration"
-
-🔐 El archivo está pensado para contener información de contexto, no secretos.
+```
+### 🔐 El archivo está pensado para contener información de contexto, no secretos.
 
 No debería contener:
 
@@ -131,8 +132,8 @@ No debería contener:
 📄 Información sensible innecesaria.
 
 
-📁 Project Structure
-
+## 📁 Project Structure
+```
 the-last-manual/
 ├── last_manual.py
 ├── manual.yaml
@@ -142,35 +143,36 @@ the-last-manual/
 └── examples/
     ├── manual.example.yaml
     └── handover_report.example.md
-
-🐍 last_manual.py
+```
+🐍 `last_manual.py`
 
 Script principal.
 
 Lee el manual y consulta información directamente en el sistema Linux para realizar las comprobaciones.
 
-📖 manual.yaml
+### 📖 manual.yaml
 
 Contiene la información conocida del sistema que se utilizará como referencia.
 
-📚 examples/
+### 📚 examples/
 
 Contiene ejemplos seguros para entender cómo documentar un sistema y cómo puede verse un reporte.
 
-▶️ Usage
+### ▶️ Usage
 
 Desde el directorio del proyecto:
-
+```
 python3 last_manual.py
+```
 
-🐧 El programa debe ejecutarse en un sistema Linux.
+### 🐧 El programa debe ejecutarse en un sistema Linux.
 
-🛡️ No realiza cambios en el sistema.
+### 🛡️ No realiza cambios en el sistema.
 
-🧪 Example Output
+### 🧪 Example Output
 
 Un resultado puede verse así:
-
+```
 === THE LAST MANUAL ===
 [*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
 
@@ -193,7 +195,7 @@ Un resultado puede verse así:
 ========================================
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
 ========================================
-
+```
 Si alguna comprobación no coincide con lo documentado, el resultado indica que necesita revisión.
 
 ⚠️ Review Required
@@ -303,11 +305,11 @@ Dice:
 
 📦 No requiere librerías externas de Python.
 
-📜 License
+## 📜 License
 
 MIT License.
 
-👨‍💻 Author
+### 👨‍💻 Author
 
 Eduar Q.
 
