@@ -45,7 +45,7 @@ known_components:
       purpose: "System user database"
     - path: "/etc/ssh/sshd_config"
       purpose: "SSH security configuration"
-
+```
 ▶️ Usage
 Ejecuta el programa localmente en un sistema Linux:
 python3 last_manual.py
@@ -75,6 +75,7 @@ python3 last_manual.py
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
 ========================================
 
+```
 📁 Project Structure
 the-last-manual/
 ├── last_manual.py
@@ -85,7 +86,7 @@ the-last-manual/
 └── examples/
     ├── manual.example.yaml
     └── handover_report.example.md
-
+```
  * last_manual.py: Utiliza únicamente Python 3 y herramientas nativas de Linux, sin librerías externas.
  * manual.yaml: Sirve como referencia del estado conocido del sistema.
  * examples/: Contiene ejemplos para documentar un sistema y entender el resultado.
