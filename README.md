@@ -98,7 +98,11 @@ the-last-manual/
 
 ```
 
-El proyecto está compuesto por el script principal **`last_manual.py`** (stdlib-only, sin dependencias externas en Python 3), el archivo de contexto **`manual.yaml`** y el directorio **`examples/`** con plantillas de referencia.
+El proyecto está compuesto por el script principal 
+
+- **`last_manual.py`** (stdlib-only, sin dependencias externas en Python 3),
+- El archivo de contexto **`manual.yaml`**
+- El directorio **`examples/`** con plantillas de referencia.
 
 *The Last Manual* es una herramienta de apoyo rápido para un proceso de *handover* basada en Linux, `/etc/passwd`, `/etc/shells` y `systemctl`. No pretende reemplazar auditorías formales de seguridad ni descubrir absolutamente todo en el sistema, sino acortar la curva de incertidumbre inicial.
 
