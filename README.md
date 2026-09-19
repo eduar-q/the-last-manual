@@ -136,7 +136,7 @@ No pretende:
 ⚙️ Realizar cambios en el sistema.
 
 
-Su objetivo es más sencillo:
+** Su objetivo es más sencillo:**
 
 Reducir la incertidumbre inicial cuando alguien tiene que hacerse cargo de un sistema que no conoce.
 
