@@ -121,7 +121,7 @@ the-last-manual/
 
 ## ⚠️ Limitations
 
-The Last Manual es una herramienta pequeña de apoyo durante un handover.
+**The Last Manual** es una herramienta pequeña de apoyo durante un handover.
 
 No pretende:
 
