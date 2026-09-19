@@ -46,12 +46,14 @@ known_components:
     - path: "/etc/ssh/sshd_config"
       purpose: "SSH security configuration"
 ```
-▶️ Usage
+## ▶️ Usage
 Ejecuta el programa localmente en un sistema Linux:
+```
 python3 last_manual.py
-
+```
 🛡️ No realiza cambios en el sistema.
 🧪 Example Output
+```
 === THE LAST MANUAL ===
 [*] Iniciando reconciliación de estado (KNOWN vs UNKNOWN)...
 
@@ -74,7 +76,7 @@ python3 last_manual.py
 ========================================
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
 ========================================
-
+```
 ```
 📁 Project Structure
 the-last-manual/
@@ -90,24 +92,36 @@ the-last-manual/
  * last_manual.py: Utiliza únicamente Python 3 y herramientas nativas de Linux, sin librerías externas.
  * manual.yaml: Sirve como referencia del estado conocido del sistema.
  * examples/: Contiene ejemplos para documentar un sistema y entender el resultado.
-⚠️ Limitations
+   
+## ⚠️ Limitations
+
 The Last Manual es una herramienta pequeña de apoyo durante un handover.
+
 No pretende:
  * 🔎 Descubrir absolutamente todo lo que existe en Linux.
  * 🧠 Determinar por qué existe un servicio o usuario.
  * 🛡️ Decidir si una configuración es segura o insegura.
  * 🔐 Reemplazar una auditoría formal de seguridad.
  * ⚙️ Realizar cambios en el sistema.
+   
 Su objetivo es más sencillo:
+
 Reducir la incertidumbre inicial cuando alguien tiene que hacerse cargo de un sistema que no conoce.
-💭 Why I Built It
+
+#$ 💭 Why I Built It
+
 Un sistema puede seguir funcionando aunque la persona que lo administraba ya no esté disponible. A veces existe documentación, pero está incompleta o desactualizada. Otras veces simplemente hay que recibir un sistema que otra persona conoce mucho mejor.
+
 The Last Manual intenta responder una pregunta sencilla:
+
 ¿Lo que está documentado coincide con lo que realmente existe?
 Si no coincide, la herramienta no intenta adivinar. 🔍 Señala la diferencia para que una persona pueda investigar, preguntar o actualizar la documentación.
-📜 License
+
+#$ 📜 License
 MIT License.
-👨‍💻 Author
+
+## 👨‍💻 Author
+
 Eduar Q.
 🎓 Computer Engineer
 🛡️ Defensive Cybersecurity & Systems Infrastructure
