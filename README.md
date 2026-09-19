@@ -108,7 +108,7 @@ Su objetivo es más sencillo:
 
 Reducir la incertidumbre inicial cuando alguien tiene que hacerse cargo de un sistema que no conoce.
 
-#$ 💭 Why I Built It
+## 💭 Why I Built It
 
 Un sistema puede seguir funcionando aunque la persona que lo administraba ya no esté disponible. A veces existe documentación, pero está incompleta o desactualizada. Otras veces simplemente hay que recibir un sistema que otra persona conoce mucho mejor.
 
@@ -117,7 +117,7 @@ The Last Manual intenta responder una pregunta sencilla:
 ¿Lo que está documentado coincide con lo que realmente existe?
 Si no coincide, la herramienta no intenta adivinar. 🔍 Señala la diferencia para que una persona pueda investigar, preguntar o actualizar la documentación.
 
-#$ 📜 License
+## 📜 License
 MIT License.
 
 ## 👨‍💻 Author
