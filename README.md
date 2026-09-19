@@ -58,7 +58,7 @@ known_components:
 ```
 ---
 
-▶️ Usage
+## ▶️ Usage
 
 Ejecuta el programa localmente en un sistema Linux:
 
@@ -69,8 +69,8 @@ python3 last_manual.py
 
 ---
 
-🧪 Example Output
-
+## 🧪 Example Output
+```
 === THE LAST MANUAL ===
 [*] Iniciando reconciliación de estado (KNOWN vs ACTUAL)...
 
@@ -93,12 +93,12 @@ python3 last_manual.py
 ========================================
 [RESULTADO] Handover limpio: 0 discrepancias. Estado KNOWN confirmado. [✔]
 ========================================
-
+```
 
 ---
 
-📁 Project Structure
-
+## 📁 Project Structure
+```
 the-last-manual/
 ├── last_manual.py
 ├── manual.yaml
@@ -108,18 +108,18 @@ the-last-manual/
 └── examples/
     ├── manual.example.yaml
     └── handover_report.example.md
+```
+`last_manual.py`: Utiliza Python 3 y herramientas nativas de Linux, sin librerías externas.
 
-last_manual.py: Utiliza Python 3 y herramientas nativas de Linux, sin librerías externas.
+`manual.yaml`: Sirve como referencia del estado conocido del sistema.
 
-manual.yaml: Sirve como referencia del estado conocido del sistema.
-
-examples/: Contiene ejemplos para documentar un sistema y entender el resultado.
+`examples/`: Contiene ejemplos para documentar un sistema y entender el resultado.
 
 
 
 ---
 
-⚠️ Limitations
+## ⚠️ Limitations
 
 The Last Manual es una herramienta pequeña de apoyo durante un handover.
 
@@ -143,7 +143,7 @@ Reducir la incertidumbre inicial cuando alguien tiene que hacerse cargo de un si
 
 ---
 
-💭 Why I Built It
+## 💭 Why I Built It
 
 Un sistema puede seguir funcionando aunque la persona que lo administraba ya no esté disponible.
 
@@ -162,7 +162,7 @@ Si no coincide, la herramienta no intenta adivinar.
 
 ---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Eduar Q.
 
