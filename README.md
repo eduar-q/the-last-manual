@@ -62,7 +62,7 @@ known_components:
 
 Ejecuta el programa localmente en un sistema Linux:
 
-python3 last_manual.py
+`python3 last_manual.py`
 
 🛡️ No realiza cambios en el sistema.
 
